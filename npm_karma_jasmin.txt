@@ -1,0 +1,42 @@
+download and install Nodes.js 
+open command prompt
+
+
+//use below 2 commands for proxy config in corporate network
+
+npm config set proxy http://sreeharis:India@2016@192.168.208.18:8080
+npm config set https_proxy=http://sreeharis:India@2016@192.168.208.18:8080
+mkdir D:\Angulartest
+cd D:\Angulartest
+
+npm install karma --save dev_test
+npm install karma-jasmine --save dev_test
+npm install karma-chrome-launcher --save dev_test
+npm install -g karma-cli
+karma init
+
+Answer below 2 question in between remaining defaults.
+
+What is the location of your source and test files ?
+You can use glob patterns, eg. "js/*.js" or "test/**/*Spec.js".
+Enter empty string to move to the next question.
+> app/**/*.js
+19 08 2016 15:34:28.230:WARN [init]: There is no file matching
+
+> test/**/*.js
+>
+
+place test java script  files in test folder
+
+run below in cmd
+
+
+npm install bower -g
+
+bower install angular
+
+bower install angular-mocks
+
+bower install angular-resource
+
+karma start karma.conf.js
