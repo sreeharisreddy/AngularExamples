@@ -1,0 +1,15 @@
+git commands
+-----------------------------
+cd D:\GitProjects
+git init
+git add .
+git commit -m "description"
+git log 
+git log --author="sreehari"
+git status 
+git remote add gittest https://github.com/sreeharisreddy/AngularExamples.git
+git add .
+git pus -u gittest
+
+commit for add and modified files a means add m means modified.
+git commit -am "test"
