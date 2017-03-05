@@ -1,0 +1,11 @@
+Consumer Key (API Key)	JUngeSmQKnG2kQ9DfFzyJ9X0v
+Consumer Secret (API Secret)	i4OfPgcDX3O6oCWcLzlxhm4qz1trZQWHbomHwEqNYMuyq5fa8w
+Access Level	Read and write (modify app permissions)
+Owner	sreehari1410
+Owner ID	323192996
+
+Access Token	323192996-gvAC0zCB62B9ll5FQSIw8oBnO81D2XgT7egJ9ksT
+Access Token Secret	WRATYQtdRbj8Dp1teU806dtuHD7NJsLR5URlPLGRYV0lC
+Access Level	Read and write
+Owner	sreehari1410
+Owner ID	323192996

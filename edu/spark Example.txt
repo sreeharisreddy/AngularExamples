@@ -1,0 +1,35 @@
+sqoop import --connect "jdbc:mysql://52.34.11.96/sreehari" --username sreehari --password sPVLZTIj0gEZ2y8 --table BSE_STOCK_PRICE_COPY --where "REPORT_DATE = '2015-05-14 00:00:00'" --hive-partition-key "report_date_part" --hive-partition-value "2015-05-14" -hive-import -hive-table "sreehari.SQOOP_BSE_STOCK_PRICE_COPY" 
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' SELECT * FROM s
+
+
+
+users = LOAD 'movie-100k/u.user' USING PigStorage('|') AS (userId,age,gender,occupation,zipCode);
+
+allUsers = GROUP users ALL;
+//returns (all,{(),()...})
+stats = FOREACH allUsers GENERATE COUNT(users) , AVG(users.age) ,SUM(users.age);
+grpBygender = GROUP users BY gender;
+
+programmers = FILTER users BY occupation == 'programmer';
+programmersByAge = GROUP programmers BY age;
+
+progCountsByAge = FOREACH programmersByAge GENERATE group AS age, COUNT(programmers) as NumPrograms;
+
+progsCountByAGeSorted = ORDER progCountsByAge BY NumPrograms DESC;
+
+STORE stats into '/user/sreehari/out001' using PigStorage ('\t');
+
+votes = LOAD '/user/sreehari/movie-100k/u.data' USING PigStorage('\t') AS 	(userId,itemId,rating,timestamp);
+
+movies = LOAD '/user/sreehari/movie-100k/u.item' USING PigStorage('|') AS 	(movieId,movieTitle, releaseDate, videoReleaseDate, imdbURL, unknown, Action,	Adventure, Animation, Childrens, Comedy, Crime, Documentary, Drama, Fantasy, FilmNoir, 	Horror, Musical, Mystery, Romance, SciFi,Thriller,War,Western);
+
+movieVotesGroup = GROUP votes BY itemId;
+
+STORE movieVotesGroup into '/user/sreehari/pigoutput' using PigStorage ('\t');
+
+movieVotes = FOREACH movieVotesGroup GENERATE FLATTEN(group) AS movieId, 
+                                     AVG(votes.rating) AS avgRating, COUNT(votes) AS numVotes;
+									 
+	moviesWithVotes = JOIN movieVotes BY movieId, movies BY movieId;

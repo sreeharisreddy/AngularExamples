@@ -1,0 +1,43 @@
+CREATE EXTERNAL TABLE sreehari.truck_events_external (
+ driverId INT,
+ truckId INT,
+ eventTime STRING,
+ eventType STRING,
+ longitude STRING,
+ latitude STRING,
+ eventKey STRING,
+ correlationId STRING,
+ driverName STRING,
+ routeId STRING,
+ routeName STRING,
+ eventDate STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/user/sreehari/truck_ext';
+
+LOAD DATA LOCAL INPATH '/home/sreehari/data/driver_data/driver_datatruck_event_text_partition.csv' INTO TABLE sreehari.truck_events_external ;
+
+
+CREATE TABLE sreehari.truck_events_partitioned (
+ driverId INT,
+ truckId INT,
+ eventTime STRING,
+ eventType STRING,
+ longitude STRING,
+ latitude STRING,
+ eventKey STRING,
+ correlationId STRING,
+ driverName STRING,
+ routeId STRING,
+ routeName STRING,
+ eventDate STRING
+)
+ PARTITIONED BY(eventDateKey STRING)
+ ROW FORMAT DELIMITED
+ FIELDS TERMINATED BY ','
+ STORED AS SEQUENCEFILE; 
+ 
+ INSERT INTO sreehari.truck_events_partitioned PARTITION(eventDateKey)  SELECT driverId, truckId, eventTime, eventType, longitude, latitude, eventKey, CorrelationId, driverName, routeId, routeName, eventDate, eventDate FROM truck_events_external;
+ set hive.exec.dynamic.partition.mode=nonstrict
